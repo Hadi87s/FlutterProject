@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -5,12 +7,14 @@ void main() {
 }
 
 Future<int> getMultipliedByTwo(int number) {
-  return Future.delayed(Duration(seconds: 4), () => number * 2);
+  return Future.delayed(Duration(seconds: 2), () => number * 2);
 }
 
 void test() async {
   var result = await getMultipliedByTwo(10);
-  print(result);
+  print(
+      result); // this value will be printed after the Future's execution is over. (after 2 seconds)
+  print("Test Executed Successfully!");
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +24,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     test();
+    print(
+        "Test function continues..."); // here the execution of the test function will be async and this statement will be executed instantly.
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
