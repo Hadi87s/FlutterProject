@@ -11,11 +11,24 @@ Future<int> getMultipliedByTwo(int number) {
   return Future.delayed(Duration(seconds: 2), () => number * 2);
 }
 
+Stream<String> getName() {
+  return Stream.periodic(Duration(seconds: 2), (value) => "Foo");
+}
+
 void test() async {
   var result = await getMultipliedByTwo(10);
   print(
       result); // this value will be printed after the Future's execution is over. (after 2 seconds)
   print("Test Executed Successfully!");
+
+  // syntax to get a value from a stream.
+  await for (final value in getName()) {
+    print(value);
+    // break; //this actually works and breaks out of the stream, you can use a condition to do so.
+  }
+  print(
+      "Stream is done Working"); // bewarre that this statement will never be printed because the stream is working 24/7 and printing the same value we gave it.
+  // so it will be printing "Foo" forever
 }
 
 class MyApp extends StatelessWidget {
