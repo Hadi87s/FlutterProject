@@ -16,10 +16,18 @@ Stream<String> getName() {
 }
 
 void test() async {
+  // you can use the await to get the data
   var result = await getMultipliedByTwo(10);
   print(
       result); // this value will be printed after the Future's execution is over. (after 2 seconds)
   print("Test Executed Successfully!");
+
+  // or you can use the .then((data){actions...}).then(...).catchError((error){print(e)}) to do the same thing.
+  getMultipliedByTwo(15).then((data) {
+    print(data);
+  }).catchError((e) {
+    print("Error: $e");
+  });
 
   // syntax to get a value from a stream.
   await for (final value in getName()) {
