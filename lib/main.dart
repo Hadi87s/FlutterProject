@@ -7,6 +7,7 @@ void main() {
 }
 
 Future<int> getMultipliedByTwo(int number) {
+  print("Fetching data...");
   return Future.delayed(Duration(seconds: 2), () => number * 2);
 }
 
