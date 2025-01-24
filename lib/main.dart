@@ -6,20 +6,30 @@ void main() {
   runApp(const MyApp());
 }
 
-Iterable<int> getNumber() sync* {
-  yield 1;
-  yield 2;
-  yield 3;
+class Pair<A, B> {
+  // This is how to create a generic typed class for different types
+  final A value1;
+  final B value2;
+
+  Pair(this.value1, this.value2);
 }
 
-void test() async {
-  // Generators
-  print("The Whole Iterable:");
-  print(getNumber()); // here you'll print the whole iterable.
-  print("Elements of the Iterable:");
-  for (final value in getNumber()) {
-    print(value); // here its a for each to print each element in the iterable.
-  }
+void test() {
+  final myPair = Pair("Foo", 5);
+  print("Value1 = ${myPair.value1}");
+  print("Value2 = ${myPair.value2}");
+  /* output:  
+  Value1 = Foo
+  Value2 = 5
+   */
+
+  final myPair2 = Pair(true, "Welcome to PS");
+  print("Value1 = ${myPair2.value1}");
+  print("Value2 = ${myPair2.value2}");
+  /* output:  
+  Value1 = true
+  Value2 = Welcome to PS
+   */
 }
 
 class MyApp extends StatelessWidget {
