@@ -6,37 +6,20 @@ void main() {
   runApp(const MyApp());
 }
 
-Future<int> getMultipliedByTwo(int number) {
-  print("Fetching data...");
-  return Future.delayed(Duration(seconds: 2), () => number * 2);
-}
-
-Stream<String> getName() {
-  return Stream.periodic(Duration(seconds: 2), (value) => "Foo");
+Iterable<int> getNumber() sync* {
+  yield 1;
+  yield 2;
+  yield 3;
 }
 
 void test() async {
-  // you can use the await to get the data
-  var result = await getMultipliedByTwo(10);
-  print(
-      result); // this value will be printed after the Future's execution is over. (after 2 seconds)
-  print("Test Executed Successfully!");
-
-  // or you can use the .then((data){actions...}).then(...).catchError((error){print(e)}) to do the same thing.
-  getMultipliedByTwo(15).then((data) {
-    print(data);
-  }).catchError((e) {
-    print("Error: $e");
-  });
-
-  // syntax to get a value from a stream.
-  await for (final value in getName()) {
-    print(value);
-    // break; //this actually works and breaks out of the stream, you can use a condition to do so.
+  // Generators
+  print("The Whole Iterable:");
+  print(getNumber()); // here you'll print the whole iterable.
+  print("Elements of the Iterable:");
+  for (final value in getNumber()) {
+    print(value); // here its a for each to print each element in the iterable.
   }
-  print(
-      "Stream is done Working"); // bewarre that this statement will never be printed because the stream is working 24/7 and printing the same value we gave it.
-  // so it will be printing "Foo" forever
 }
 
 class MyApp extends StatelessWidget {
@@ -46,8 +29,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     test();
-    print(
-        "Test function continues..."); // here the execution of the test function will be async and this statement will be executed instantly.
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
